@@ -4,7 +4,7 @@ import { Typography } from "@mui/material";
 
 const Header = () => {
     return (
-        <div className="w-full px-60 py-2 hero" style={{backgroundColor: "#f7f6f5", backgroundImage: "url(beer-pattern.png)"}}>
+        <div className="w-full px-36 py-2 border-b-2 border-b-gray-200" style={{backgroundColor: "#f7f6f5", backgroundImage: "url(beer-pattern.png)"}}>
             <div className="flex w-full">
                 <div className="w-1/3 flex items-center justify-evenly">
                     <Typography variant="button" className="cursor-pointer">

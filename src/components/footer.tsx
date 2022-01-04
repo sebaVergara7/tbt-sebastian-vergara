@@ -6,8 +6,7 @@ import { Fragment } from "react";
 const Footer = () => {
     return (
         <Fragment>
-            <div className="w-full px-60 py-2" style={{backgroundImage: "url(beer-pattern.png)"}}>
-            {/* <div className="w-full px-60 py-2 hero" style={{backgroundColor: "#f7f6f5", backgroundImage: "url(beer-pattern.png)"}}> */}
+            <div className="w-full px-36 py-2 border-t-2 border-t-gray-200" style={{backgroundImage: "url(beer-pattern.png)"}}>
                 <div className="flex w-full">
                     <div className="w-1/4 flex items-center justify-center">
                         <img alt="beer" className="h-16 mr-2" src="beer.png"/>
@@ -20,7 +19,7 @@ const Footer = () => {
                             </Typography>
                         </div>
                     </div>
-                    <div className="w-3/4 flex">
+                    <div className="w-3/4 flex items-center">
                         <div className="w-1/4 flex flex-col">
                             <Room style={{color: "#ac3051"}} />
                             <span className="text-xs font-light">Rusia, <b>Bolshaya Serpukhovskaya, 44,</b> </span>
@@ -36,8 +35,9 @@ const Footer = () => {
                             <span className="text-xs font-light">info@thebeeroftomorrow.es</span>
                             <span className="text-xs font-light">order@thebeeroftomorrow.es</span>
                         </div>
-                        <div className="w-1/4 flex items-center justify-center">
+                        <div className="w-1/4 flex flex-col items-center justify-center">
                             <Button variant="contained" style={{backgroundColor: "#ac3051"}}>Solicita una llamada</Button>
+                            <span style={{fontSize: ".6rem"}} className="font-light leading-loose">Respondemos hasta en 15 días</span>
                         </div>
                     </div>
                 </div>
