@@ -8,3 +8,10 @@
 ##### 4°  Se genera componente footer
 
 ----------
+## **v1.01**
+
+### **Se estiliza header y footer** | **Resumen general de avances**
+
+##### 1°  Se añade imagen patrón a header y footer
+
+----------

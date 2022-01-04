@@ -6,7 +6,7 @@ import { Fragment } from "react";
 const Footer = () => {
     return (
         <Fragment>
-            <div className="w-full px-60 py-2" style={{backgroundColor: "#f7f6f5"}}>
+            <div className="w-full px-60 py-2" style={{backgroundImage: "url(beer-pattern.png)"}}>
             {/* <div className="w-full px-60 py-2 hero" style={{backgroundColor: "#f7f6f5", backgroundImage: "url(beer-pattern.png)"}}> */}
                 <div className="flex w-full">
                     <div className="w-1/4 flex items-center justify-center">
