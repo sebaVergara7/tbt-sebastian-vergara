@@ -1,8 +1,12 @@
+import Layout from "./components/layout";
+
 function App() {
   return (
-    <div className="App">
-      <h1>Hola Mundo</h1>
-    </div>
+    <Layout>
+      <h1 className="text-3xl font-bold underline">
+        Hola Mundo
+      </h1>
+    </Layout>
   );
 }
 
