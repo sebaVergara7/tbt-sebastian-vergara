@@ -25,3 +25,15 @@
 ##### 4°  Se añade librería axios
 
 ----------
+## **v1.3**
+
+### **Se añade librería redux** | **Resumen general de avances**
+
+##### 1°  Se añade lógica relacionada al uso de redux
+##### 2°  Se limpia código de apiCerveza
+##### 3°  Se añade itemCerveza como listado
+##### 4°  Se estiliza componente filtro
+##### 5°  Se mueve index.css a carpeta styles
+##### 6°  Se modifica CervezaSchema
+
+----------

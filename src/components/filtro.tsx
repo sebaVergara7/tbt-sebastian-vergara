@@ -1,7 +1,9 @@
 import { Card, CardContent, Checkbox, CheckboxProps, FormControlLabel, FormGroup, Slider, Accordion, AccordionDetails, AccordionSummary, Button } from "@mui/material";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { styled } from "@mui/system";
 import { Close, ExpandMore } from "@mui/icons-material";
+import { connect } from "react-redux";
+import { setFiltro } from "../redux/actions/main";
 
 const SliderStyled = styled(Slider)(({ theme }) => ({
     color: '#ac3051',
@@ -62,7 +64,9 @@ const BpCheckbox = (props: CheckboxProps) => {
     );
 }
 
-const Filtro = () => {
+const Filtro = (props: any) => {
+
+    const { filtro } = props;
 
     const [value, setValue] = useState<number[]>([0, 100]);
 
@@ -71,7 +75,7 @@ const Filtro = () => {
     };
 
     const valuetext = (value: number) => {
-        return `${value}°C`;
+        return `$${value}`;
     }
 
     const marks = [
@@ -88,7 +92,7 @@ const Filtro = () => {
     return (
         <div className="flex flex-col w-full items-center">
             <Card sx={{ minWidth: 275 }}>
-                <CardContent className="leading-loose">
+                <CardContent className="leading-loose" style={{paddingBottom: 0}}>
                     <span className="uppercase text-xl font-bold">Filtrar</span>
                     <div className="border-b-gray-200 border-b-2 flex flex-col py-4">
                         <span className="uppercase font-light text-sm">Precio</span>
@@ -147,7 +151,7 @@ const Filtro = () => {
                             </AccordionDetails>
                         </Accordion>
                     </div>
-                    <div className="border-b-gray-200 border-b-2 flex flex-col py-4">
+                    <div className="flex flex-col py-4">
                         <Accordion>
                             <AccordionSummary expandIcon={<ExpandMore/>} >
                                 <span className="uppercase font-light text-sm">CTPAHA</span>
@@ -164,9 +168,13 @@ const Filtro = () => {
                     </div>
                 </CardContent>
             </Card>
-            <Button color="inherit" style={{fontSize: "1rem", width: "fit-content", lineHeight: 2, marginTop: ".5rem", color: "#d5d4d4"}}>
-                <Close style={{fontSize: "1rem"}} /> Reestablecer Filtro
-            </Button>
+            {
+                filtro && (
+                    <Button color="inherit" style={{fontSize: "1rem", width: "fit-content", lineHeight: 2, marginTop: ".5rem", color: "#d5d4d4"}}>
+                        <Close style={{fontSize: "1rem"}} /> Reestablecer Filtro
+                    </Button>
+                )
+            }
         </div>
     )
 }
@@ -174,4 +182,12 @@ const Filtro = () => {
 Filtro.defaultProps = {
 }
 
-export default Filtro;
+const mapStateToProps = (state: any) => ({
+    filtro: state.main.filtro
+})
+
+const mapDispatchToProps = {
+    setFiltro: setFiltro
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Filtro);

@@ -11,7 +11,7 @@ export interface ILayout {
 const Layout = ({children, title, className}: ILayout) => {
     return (
         <Fragment>
-            <Header/>
+            <Header />
             <div className={`${className} px-36 py-10`}>{children}</div>
             <Footer />
         </Fragment>

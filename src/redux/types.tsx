@@ -1,0 +1,3 @@
+export const SET_CERVEZA = "SET_CERVEZA";
+export const SET_FILTRO = "SET_FILTRO";
+export const SET_LISTA_CERVEZAS = "SET_LISTA_CERVEZAS";

@@ -1,16 +1,18 @@
 class CervezaSchema {
     
-    _id?    : string;
-    userId? : string;
-    title?  : string;
-    body?   : string;   
+   id          : number;
+   name        : string; 
+   ingredients : {
+      yeast : string;
+   };
+   image_url   : string;
     
-    constructor(cerveza: CervezaSchema) {
-       this._id    = cerveza._id;
-       this.userId = cerveza.userId;
-       this.title  = cerveza.title;
-       this.body   = cerveza.body;
-    }
+   constructor(cerveza: CervezaSchema) {
+      this.id           = cerveza.id;
+      this.name         = cerveza.name;
+      this.ingredients  = cerveza.ingredients;
+      this.image_url    = cerveza.image_url;
+   }
  }
  
  export default CervezaSchema;
