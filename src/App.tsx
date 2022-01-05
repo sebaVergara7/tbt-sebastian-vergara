@@ -25,25 +25,25 @@ function App(props: any) {
     <Layout>
       <Fragment>
         <div className="w-full flex flex-col items-center justify-center uppercase">
-          <div className="text-sm w-1/5 justify-center inline-flex items-center leading-10">
+          <div className="text-sm w-full md:w-1/5 lg:w-1/5 justify-center inline-flex items-center leading-10">
             <span className="underline">Casa</span>
             <Square style={{fontSize: ".5rem", color: "#d5d4d4"}} className="rotate-45 mx-2"/>
             <span style={{color: "#d5d4d4"}}>Catálogo principal</span>
           </div>
-          <span className="text-4xl leading-loose">Catálogo principal</span>
+          <span className="text-2xl lg:text-4xl md:text-4xl leading-loose text-center">Catálogo principal</span>
         </div>
-        <div className="w-full flex">
-          <div className="w-1/3">
+        <div className="w-full flex flex-col lg:flex-row md:flex-row mt-0 lg:mt-2 md:mt-2">
+          <div className="w-full lg:w-1/3 md:w-1/3">
             <Filtro />
           </div>
-          <div className="w-2/3 flex flex-col">
+          <div className="mt-2 lg:mt-0 md:mt-0 w-full lg:w-2/3 md:w-2/3 flex flex-col">
             <div className="w-full flex flex-wrap">
               {
                 listaCervezas && listaCervezas.map((cerveza: CervezaSchema, index: number) => <ItemCerveza key={index} props={{cerveza: cerveza}}/>)
               }
             </div>
             <div className="flex w-full items-center justify-center mt-5">
-              <div className="w-1/3">
+              <div className="flex items-center justify-center w-full lg:w-1/3 md:w-1/3">
                 <Button variant="outlined" style={{color: "#ac3051", borderColor: "#ac3051", padding: ".5rem 4rem"}}>Mostrar más</Button>
               </div>
 

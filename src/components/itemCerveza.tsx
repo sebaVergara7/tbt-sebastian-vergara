@@ -15,7 +15,7 @@ const ItemCerveza = ({props}: IItemCerveza) => {
     const { cerveza } = props;
 
     return (
-        <div className="w-1/3 p-2">
+        <div className="w-full lg:w-1/3 md:w-1/3 py-2 px-4">
             <Card className="hover:scale-105 hover:transition hover:duration-200 rounded-none cursor-pointer">
                 <div className="w-full flex justify-center">
                     <FilterList style={{fontSize: "3rem", bottom: ".7rem", color: "#d5d4d4"}} className="relative" />

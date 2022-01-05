@@ -12,7 +12,7 @@ const Layout = ({children, title, className}: ILayout) => {
     return (
         <Fragment>
             <Header />
-            <div className={`${className} px-36 py-10`}>{children}</div>
+            <div className={`lg:px-36 md:px-36 py-10`}>{children}</div>
             <Footer />
         </Fragment>
     )

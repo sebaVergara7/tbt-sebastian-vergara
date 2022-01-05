@@ -37,3 +37,10 @@
 ##### 6°  Se modifica CervezaSchema
 
 ----------
+## **v1.4**
+
+### **Se aplica concepto Mobile first** | **Resumen general de avances**
+
+##### 1°  Se añade responsividad a gran parte de los componentes
+
+----------
