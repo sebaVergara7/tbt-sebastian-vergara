@@ -1,31 +1,31 @@
 import * as t from '../types';
 
 const initialState = {
-    filtro              : {
-        per_page        : 25,
-        rangoOG         : [0, 100],
-        listaLevaduras  : [],
-        listaLupulos    : [],
-        listaMaltas     : [],
-        listaComidas    : []
+    filtro: {
+        per_page: 25,
+        rangoABV: [0, 60],
+        listaLevaduras: [],
+        listaLupulos: [],
+        listaMaltas: [],
+        listaComidas: []
     },
-    listaCervezas       : [],
-    listaCervezasAux    : [],
-    listaLevaduras      : [
-        "Saflager S189",
-        "WLP099 - Super High Gravity Ale",
-        "WLP500 - Monastery Ale",
-        "Wyeast 1010 - American Wheat™",
-        "Wyeast 1056 - American Ale™",
-        "Wyeast 1272 - American Ale II™",
-        "Wyeast 2007 - Pilsen Lager™",
-        "Wyeast 3333 - German Wheat™",
-        "Wyeast 3522 - Belgian Ardennes™",
-        "Wyeast 3638 - Bavarian Wheat™",
-        "Wyeast 3711 - French Saison™",
-        "Wyeast 3787 - Trappist High Gravity™"
+    listaCervezas: [],
+    listaCervezasAux: [],
+    listaLevaduras: [
+        { name: "Saflager S189", color: "#b9945e" },
+        { name: "WLP099 - Super High Gravity Ale", color: "#b95e5e" },
+        { name: "WLP500 - Monastery Ale", color: "#b8b95e" },
+        { name: "Wyeast 1010 - American Wheat™", color: "#5eb993" },
+        { name: "Wyeast 1056 - American Ale™", color: "#5e87b9" },
+        { name: "Wyeast 1272 - American Ale II™", color: "#895eb9" },
+        { name: "Wyeast 2007 - Pilsen Lager™", color: "#b95e84" },
+        { name: "Wyeast 3333 - German Wheat™", color: "#5e97b9" },
+        { name: "Wyeast 3522 - Belgian Ardennes™", color: "#7db95e" },
+        { name: "Wyeast 3638 - Bavarian Wheat™", color: "#4e5e8d" },
+        { name: "Wyeast 3711 - French Saison™", color: "#8d514e" },
+        { name: "Wyeast 3787 - Trappist High Gravity™", color: "#8d4e88" }
     ],
-    listaLupulos        : [
+    listaLupulos: [
         "Ahtanum",
         "Amarillo",
         "Blackberry Concentrate",
@@ -74,7 +74,7 @@ const initialState = {
         "Waimea",
         "Willamette"
     ],
-    listaMaltas         : [
+    listaMaltas: [
         "Acidulated Malt",
         "Acidulated Malt for kettle souring",
         "Amber",
@@ -118,7 +118,7 @@ const initialState = {
         "Wheat",
         "Wheat Malt"
     ],
-    listaComidas        : [
+    listaComidas: [
         "12hr smoked brisket",
         "20hr smoked brisket",
         "Almond biscotti",
@@ -367,7 +367,7 @@ const main = (state = initialState, action: any) => {
             return {
                 ...state,
                 filtro: action.value
-            };    
+            };
         case t.SET_LISTA_CERVEZAS:
             return {
                 ...state,
@@ -377,15 +377,15 @@ const main = (state = initialState, action: any) => {
             return {
                 ...state,
                 listaCervezasAux: action.value
-            };  
+            };
         case t.RESET_FILTRO:
             return {
                 ...state,
-                filtro        : initialState.filtro,
-                listaCervezas : state.listaCervezasAux
-            }      
+                filtro: initialState.filtro,
+                listaCervezas: state.listaCervezasAux
+            }
         default:
-            return {...state};
+            return { ...state };
     }
 }
 

@@ -1,19 +1,22 @@
-import CervezaSchema from '../models/CervezaSchema';
 import axios from 'axios';
-import FiltroSchema from '../models/FiltroSchema';
+import IFiltro from '../interfaces/IFiltro';
 
-function getCervezas(filtro: FiltroSchema){
-  return axios({
-      method: 'get',
-      url: `https://api.punkapi.com/v2/beers?per_page=${filtro.per_page}`,
-      responseType: 'json',
-    })
-    .then(function (response) {
-      return response;
-    })
-    .catch(function (error) {
-      console.log(error);
-  });
+function getCervezas(filtro: IFiltro) {
+	return axios({
+		method: 'get',
+		url: `https://api.punkapi.com/v2/beers?per_page=${filtro.per_page}`,
+		responseType: 'json',
+	})
+		.then(function (response) {
+			return response;
+		})
+		.catch(function (error) {
+			console.log(error);
+		});
 }
 
-export default {getCervezas};
+const exportedObject = {
+	getCervezas
+}
+
+export default exportedObject;

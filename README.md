@@ -54,6 +54,22 @@
 ##### 4°  Se añade info de OG y ph 'itemCerveza'
 ##### 5°  Se estiliza 'itemCerveza', añadiendo efecto de botón al card
 ##### 6°  Se añaden nuevos tipos, actions y reducers
+----------
+## **v1.6**
+
+### **Se optimiza manejo de clases y se separan las interfaces** | **Resumen general de avances**
+
+##### 1°  Se generan archivos de clase ('componentStyle' y 'pagesStyles')
+##### 2°  Se independizan las interfaces de los componentes.
+##### 3°  Se genera componente independiente 'BpCheckbox'
+##### 4°  Se añade 'title' al documento.
+##### 5°  Se elimina 'FiltroSchema'
+##### 6°  Se añade animación de carga a botón 'Mostrar Más'
+
+----------
+
+
+
 
 
 

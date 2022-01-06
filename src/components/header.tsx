@@ -1,12 +1,26 @@
 import { Tooltip, Button, Divider } from "@mui/material";
 import { Twitter, Facebook, ShoppingBagOutlined, Square } from "@mui/icons-material";
 import { Typography } from "@mui/material";
+import { Fragment } from "react";
+import classes from "./componentStyles";
+
+const listaBotones = [
+    "CATÁLOGO ENTERO",
+    "VINO",
+    "VODKA",
+    "CHAMPÁN",
+    "COÑAC",
+    "WHISKY"
+]
 
 const Header = () => {
+
+    const { classesHeader } = classes;
+
     return (
-        <div className="w-full px-2 lg:px-36 md:px-36 py-2 border-b-2 border-b-gray-200" style={{backgroundColor: "#f7f6f5", backgroundImage: "url(beer-pattern.png)"}}>
-            <div className="flex w-full flex-col lg:flex-row md:flex-row">
-                <div className="w-full lg:w-1/3 md:w-1/3 flex items-center justify-evenly">
+        <div className={classesHeader.headerDiv} style={{ backgroundColor: "#f7f6f5", backgroundImage: "url(beer-pattern.png)" }}>
+            <div className={classesHeader.headerDivTitle}>
+                <div className={classesHeader.headerDivInfo}>
                     <Typography variant="button" className="cursor-pointer">
                         ACERCA DE LA COMPAÑÍA
                     </Typography>
@@ -14,15 +28,15 @@ const Header = () => {
                         BLOG
                     </Typography>
                     <Tooltip title="@TBT">
-                        <Twitter className="cursor-pointer" style={{color: "#758ab2"}}/>
-                    </Tooltip> 
+                        <Twitter className="cursor-pointer" style={{ color: "#758ab2" }} />
+                    </Tooltip>
                     <Tooltip title="TBT">
-                        <Facebook className="cursor-pointer" style={{color: "#758ab2"}}/>
-                    </Tooltip> 
+                        <Facebook className="cursor-pointer" style={{ color: "#758ab2" }} />
+                    </Tooltip>
                 </div>
-                <div className="w-full lg:w-1/3 md:w-1/3 flex items-center justify-center my-8 lg:my-0 md:my-0">
-                    <img alt="beer" className="h-16 mr-2" src="beer.png"/>
-                    <div className="flex flex-col items-center" style={{color: "#5d2c3a"}}>
+                <div className={classesHeader.headerDivImg}>
+                    <img alt="beer" className="h-16 mr-2" src="beer.png" />
+                    <div className={classesHeader.headerDivImgSpan} style={{ color: "#5d2c3a" }}>
                         <Typography variant="h3">
                             the beer
                         </Typography>
@@ -31,24 +45,27 @@ const Header = () => {
                         </Typography>
                     </div>
                 </div>
-                <div className="w-full lg:w-1/3 md:w-1/3 flex items-center justify-evenly">
-                    <Button variant="contained" style={{backgroundColor: "#ac3051"}}>Sé un distribuidor</Button>
-                    <Button variant="outlined" className="px-0" style={{color: "#ac3051", borderColor: "#ac3051"}} ><ShoppingBagOutlined/></Button>
+                <div className={classesHeader.headerDivButton}>
+                    <Button variant="contained" style={{ backgroundColor: "#ac3051" }}>Sé un distribuidor</Button>
+                    <Button variant="outlined" className="px-0" style={{ color: "#ac3051", borderColor: "#ac3051" }} ><ShoppingBagOutlined /></Button>
                 </div>
             </div>
-            <Divider style={{margin: ".5rem 0 .5rem 0"}}/>
-            <div className="flex-col md:flex-row lg:flex-row flex items-center justify-between py-6">
-                <Button color="inherit">CATÁLOGO ENTERO</Button>  
-                <Square style={{fontSize: ".5rem", color: "#ac3051"}} className="rotate-45"/>
-                <Button color="inherit">VINO</Button>  
-                <Square style={{fontSize: ".5rem", color: "#ac3051"}} className="rotate-45"/>
-                <Button color="inherit">VODKA</Button>  
-                <Square style={{fontSize: ".5rem", color: "#ac3051"}} className="rotate-45"/>
-                <Button color="inherit">CHAMPÁN</Button>  
-                <Square style={{fontSize: ".5rem", color: "#ac3051"}} className="rotate-45"/>
-                <Button color="inherit">COÑAC</Button>  
-                <Square style={{fontSize: ".5rem", color: "#ac3051"}} className="rotate-45"/>
-                <Button color="inherit">WHISKY</Button>  
+            <Divider style={{ margin: ".5rem 0 .5rem 0" }} />
+            <div className={classesHeader.headerDivButtonList}>
+                {
+                    listaBotones.map((item, index) => {
+                        return (
+                            <Fragment key={index}>
+                                <Button color="inherit">{item}</Button>
+                                {
+                                    (index < (listaBotones.length - 1)) && (
+                                        <Square style={{ fontSize: ".5rem", color: "#ac3051" }} className="rotate-45" />
+                                    )
+                                }
+                            </Fragment>
+                        )
+                    })
+                }
             </div>
         </div>
     )

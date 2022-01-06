@@ -1,26 +1,28 @@
-import { Fragment, ReactElement } from "react";
+import { Fragment } from "react";
 import Header from "./header";
 import Footer from "./footer";
+import classes from "./componentStyles";
+import ILayout from "../interfaces/ILayout";
 
-export interface ILayout {
-    children   : ReactElement,
-    title      : string,
-    className? : string,
-}
 
-const Layout = ({children, title, className}: ILayout) => {
+
+const Layout = ({ children, title }: ILayout) => {
+
+    const { classesLayout } = classes;
+
+    document.title = title
+
     return (
         <Fragment>
             <Header />
-            <div className={`lg:px-36 md:px-36 py-10`}>{children}</div>
+            <div className={classesLayout.childrenDiv}>{children}</div>
             <Footer />
         </Fragment>
     )
 }
 
 Layout.defaultProps = {
-    title     : "SV | TBT",
-    className : null,
+    title: "SV | TBT",
 }
 
 export default Layout;
