@@ -2,9 +2,11 @@ import { Card, CardContent, FormControlLabel, FormGroup, Slider, Accordion, Acco
 import { styled } from "@mui/system";
 import { Close, ExpandMore } from "@mui/icons-material";
 import { connect } from "react-redux";
-import { setFiltro, resetFiltro } from "../redux/actions/main";
+import { setFiltro, resetFiltro, /* setListaCervezas */ } from "../redux/actions/main";
 import BpCheckbox from "./BpCheckbox";
 import classes from './componentStyles';
+// import apiCerveza from '../api/apiCerveza';
+// import IFiltro from "../interfaces/IFiltro";
 
 const SliderStyled = styled(Slider)(({ theme }) => ({
 	color: '#ac3051',
@@ -14,12 +16,6 @@ const SliderStyled = styled(Slider)(({ theme }) => ({
 		borderRadius: 0,
 		transform: "rotate(45deg) translate(-70%, 0)",
 		border: '2px solid currentColor',
-		'&:focus, &:hover, &.Mui-active, &.Mui-focusVisible': {
-			boxShadow: 'inherit',
-		},
-		'&:before': {
-			display: 'none',
-		},
 	},
 	'& .MuiSlider-markLabel': {
 		fontSize: ".7rem"
@@ -33,6 +29,7 @@ const Filtro = (props: any) => {
 	const {
 		setFiltro,
 		resetFiltro,
+		// setListaCervezas,
 		filtro,
 		listaLevaduras,
 		listaLupulos,
@@ -48,12 +45,15 @@ const Filtro = (props: any) => {
 		if (!Array.isArray(newValue)) {
 			return;
 		}
-
+		let filtroModificado = null;
 		if (activeThumb === 0) {
-			setFiltro({ ...filtro, rangoABV: [Math.min(newValue[0], filtro.rangoABV[1] - minDistance), filtro.rangoABV[1]] })
+			filtroModificado = { ...filtro, rangoABV: [Math.min(newValue[0], filtro.rangoABV[1] - minDistance), filtro.rangoABV[1]] }; 
 		} else {
-			setFiltro({ ...filtro, rangoABV: [filtro.rangoABV[0], Math.max(newValue[1], filtro.rangoABV[0] + minDistance)] })
+			filtroModificado = { ...filtro, rangoABV: [filtro.rangoABV[0], Math.max(newValue[1], filtro.rangoABV[0] + minDistance)] };
 		}
+
+		setFiltro(filtroModificado);
+		// getCervezas(filtroModificado);
 	};
 
 	const seleccionarFiltro = (e: any) => {
@@ -76,6 +76,12 @@ const Filtro = (props: any) => {
 
 		setFiltro({ ...filtro, [id]: lista });
 	}
+
+	// const getCervezas = (filtroModificado: IFiltro) => {
+	// 	apiCerveza.getCervezas(filtroModificado).then((resp) => {
+	// 		if (resp?.status === 200) { setListaCervezas(resp.data) };
+	// 	})
+	// }
 
 	const marks = [
 		{
@@ -201,8 +207,9 @@ const mapStateToProps = (state: any) => ({
 })
 
 const mapDispatchToProps = {
-	setFiltro: setFiltro,
-	resetFiltro: resetFiltro
+	setFiltro		 : setFiltro,
+	resetFiltro 	 : resetFiltro,
+	// setListaCervezas : setListaCervezas
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filtro);

@@ -25,7 +25,7 @@ const App = (props: any) => {
 
 	let listaFiltrada = listaCervezas.slice();
 
-
+	//SE FILTRA A NIVEL DE JAVASCRIPT
 	if (filtro?.listaLevaduras.length > 0) {
 		listaFiltrada = listaFiltrada.filter((f: any) => filtro.listaLevaduras.map((item: any) => { return item.name }).includes(f.ingredients.yeast));
 	}

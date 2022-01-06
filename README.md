@@ -68,6 +68,14 @@
 
 ----------
 
+## **v1.61**
+
+### **Se prioriza el manejo de filtros con javascript** | **Resumen general de avances**
+
+##### 1°  Se consulta a la api sólo con el filtro elementos por página, los demás filtros, filtran la lista a nivel de javascript.
+
+----------
+
 
 
 
