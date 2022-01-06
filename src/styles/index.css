@@ -4,8 +4,24 @@
 
 html,
 body,
-body > div:first-child,
-div#__next,
-div#__next > div {
+body > div {
     height: 100%;
 }
+
+body > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cardCerveza:hover > div > svg{
+    color: #ac3051!important;
+}
+
+.cardCerveza:hover > div > button {
+    background-color: #ac3051!important;
+    border-top: 0;
+}
+
+
+

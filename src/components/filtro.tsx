@@ -3,7 +3,9 @@ import { useState } from "react";
 import { styled } from "@mui/system";
 import { Close, ExpandMore } from "@mui/icons-material";
 import { connect } from "react-redux";
-import { setFiltro } from "../redux/actions/main";
+import { setFiltro, resetFiltro } from "../redux/actions/main";
+import FiltroSchema from "../models/FiltroSchema";
+
 
 const SliderStyled = styled(Slider)(({ theme }) => ({
     color: '#ac3051',
@@ -20,6 +22,9 @@ const SliderStyled = styled(Slider)(({ theme }) => ({
         display: 'none',
       },
     },
+    '& .MuiSlider-markLabel': {
+        fontSize: ".7rem"
+    }
 }));
 
 const BpIcon = styled('span')(({ theme }) => ({
@@ -64,30 +69,63 @@ const BpCheckbox = (props: CheckboxProps) => {
     );
 }
 
+const minDistance = 10;
+
 const Filtro = (props: any) => {
 
-    const { filtro } = props;
+    const { 
+        setFiltro, 
+        resetFiltro, 
+        filtro, 
+        listaLevaduras, 
+        listaLupulos, 
+        listaMaltas,
+        listaComidas,
+    } = props;
 
     const [value, setValue] = useState<number[]>([0, 100]);
 
-    const handleChange = (event: Event, newValue: number | number[]) => {
-        setValue(newValue as number[]);
+    const handleChange = (
+        event: Event,
+        newValue: number | number[],
+        activeThumb: number,
+      ) => {
+        if (!Array.isArray(newValue)) {
+          return;
+        }
+    
+        if (activeThumb === 0) {
+          setFiltro({...filtro, rangoOG: [Math.min(newValue[0], filtro.rangoOG[1] - minDistance), filtro.rangoOG[1]]})
+        } else {
+          setFiltro({...filtro, rangoOG: [filtro.rangoOG[0], Math.max(newValue[1], filtro.rangoOG[0] + minDistance)]})
+        }
     };
 
-    const valuetext = (value: number) => {
-        return `$${value}`;
+    const seleccionarFiltro = (e: any) => {
+        let valor = e.target.value;
+        let id = e.target.id;
+
+        let lista = filtro[id].slice();
+        let encontrado = lista.find((f: string) => f === valor);
+
+        if (encontrado) lista = lista.filter((f: string) => f !== encontrado);
+        else lista.push(valor);
+
+        setFiltro({...filtro, [id]: lista});
     }
 
     const marks = [
         {
-            value : value[0],
-            label : `$${value[0]}`
+            value : filtro.rangoOG[0],
+            label : `${1000 + filtro.rangoOG[0]}`
         },
         {
-            value : value[1],
-            label : `$${value[1]}`
+            value : filtro.rangoOG[1],
+            label : `${1000 + filtro.rangoOG[1]}`
         },
     ]
+
+    const showBtnFiltro = (filtro && (filtro.per_page > 25 || filtro.listaLevaduras.length > 0 || filtro.listaLupulos.length > 0 || filtro.listaMaltas.length > 0 || filtro.listaComidas.length > 0 || filtro.rangoOG[0] > 0 || filtro.rangoOG[1] < 100));
 
     return (
         <div className="flex flex-col w-full items-center">
@@ -95,13 +133,12 @@ const Filtro = (props: any) => {
                 <CardContent className="leading-loose" style={{paddingBottom: 0}}>
                     <span className="uppercase text-xl font-bold">Filtrar</span>
                     <div className="border-b-gray-200 border-b-2 flex flex-col py-4">
-                        <span className="uppercase font-light text-sm">Precio</span>
+                        <span className="uppercase font-light text-sm">OG</span>
                         <div className="flex items-center justify-center">
                             <SliderStyled
                                 getAriaLabel={() => 'Temperature range'}
-                                value={value}
+                                value={filtro.rangoOG}
                                 onChange={handleChange}
-                                getAriaValueText={valuetext}
                                 style={{color: "#ac3051", width: "85%"}}
                                 marks={marks}
                             />
@@ -110,13 +147,15 @@ const Filtro = (props: any) => {
                     <div className="border-b-gray-200 border-b-2 flex flex-col py-4">
                         <Accordion>
                             <AccordionSummary expandIcon={<ExpandMore/>} >
-                                <span className="uppercase font-light text-sm">Color</span>
+                                <span className="uppercase font-light text-sm">Levadura</span>
                             </AccordionSummary>
-                            <AccordionDetails>
+                            <AccordionDetails className="max-h-40 overflow-y-auto">
                                 <FormGroup>
-                                    <FormControlLabel style={{margin: 0, width: "fit-content"}} control={<BpCheckbox />} label="Rojo" />
-                                    <FormControlLabel style={{margin: 0, width: "fit-content"}} control={<BpCheckbox />} label="Blanco" />
-                                    <FormControlLabel style={{margin: 0, width: "fit-content"}} control={<BpCheckbox />} label="Rosa" />
+                                    {
+                                        listaLevaduras.map((item: any, index: number) => {
+                                            return <FormControlLabel key={index} style={{margin: 0, width: "fit-content"}} control={<BpCheckbox id="listaLevaduras" checked={filtro.listaLevaduras.includes(item)} value={item} onClick={seleccionarFiltro} key={index} />} label={item} />
+                                        })
+                                    }
                                 </FormGroup>
                             </AccordionDetails>
                         </Accordion>
@@ -124,14 +163,15 @@ const Filtro = (props: any) => {
                     <div className="border-b-gray-200 border-b-2 flex flex-col py-4">
                         <Accordion>
                             <AccordionSummary expandIcon={<ExpandMore/>} >
-                                <span className="uppercase font-light text-sm">Azúcar</span>
+                                <span className="uppercase font-light text-sm">Lúpulo</span>
                             </AccordionSummary>
-                            <AccordionDetails>
+                            <AccordionDetails className="max-h-40 overflow-y-auto">
                                 <FormGroup>
-                                    <FormControlLabel style={{margin: 0, width: "fit-content"}} control={<BpCheckbox />} label="Seco" />
-                                    <FormControlLabel style={{margin: 0, width: "fit-content"}} control={<BpCheckbox />} label="Semi Seco" />
-                                    <FormControlLabel style={{margin: 0, width: "fit-content"}} control={<BpCheckbox />} label="Dulce" />
-                                    <FormControlLabel style={{margin: 0, width: "fit-content"}} control={<BpCheckbox />} label="Semi Dulce" />
+                                    {
+                                        listaLupulos.map((item: any, index: number) => {
+                                            return <FormControlLabel key={index} style={{margin: 0, width: "fit-content"}} control={<BpCheckbox id="listaLupulos" checked={filtro.listaLupulos.includes(item)} value={item} onClick={seleccionarFiltro} key={index} />} label={item} />
+                                        })
+                                    }
                                 </FormGroup>
                             </AccordionDetails>
                         </Accordion>
@@ -139,14 +179,15 @@ const Filtro = (props: any) => {
                     <div className="border-b-gray-200 border-b-2 flex flex-col py-4">
                         <Accordion>
                             <AccordionSummary expandIcon={<ExpandMore/>} >
-                                <span className="uppercase font-light text-sm">Volúmen</span>
+                                <span className="uppercase font-light text-sm">Malta</span>
                             </AccordionSummary>
-                            <AccordionDetails>
+                            <AccordionDetails className="max-h-40 overflow-y-auto">
                                 <FormGroup>
-                                    <FormControlLabel style={{margin: 0, width: "fit-content"}} control={<BpCheckbox />} label="Seco" />
-                                    <FormControlLabel style={{margin: 0, width: "fit-content"}} control={<BpCheckbox />} label="Semi Seco" />
-                                    <FormControlLabel style={{margin: 0, width: "fit-content"}} control={<BpCheckbox />} label="Dulce" />
-                                    <FormControlLabel style={{margin: 0, width: "fit-content"}} control={<BpCheckbox />} label="Semi Dulce" />
+                                    {
+                                        listaMaltas.map((item: any, index: number) => {
+                                            return <FormControlLabel key={index} style={{margin: 0, width: "fit-content"}} control={<BpCheckbox id="listaMaltas" checked={filtro.listaMaltas.includes(item)} value={item} onClick={seleccionarFiltro} key={index} />} label={item} />
+                                        })
+                                    }
                                 </FormGroup>
                             </AccordionDetails>
                         </Accordion>
@@ -154,14 +195,15 @@ const Filtro = (props: any) => {
                     <div className="flex flex-col py-4">
                         <Accordion>
                             <AccordionSummary expandIcon={<ExpandMore/>} >
-                                <span className="uppercase font-light text-sm">CTPAHA</span>
+                                <span className="uppercase font-light text-sm">Comidas</span>
                             </AccordionSummary>
-                            <AccordionDetails>
+                            <AccordionDetails className="max-h-40 overflow-y-auto">
                                 <FormGroup>
-                                    <FormControlLabel style={{margin: 0, width: "fit-content"}} control={<BpCheckbox />} label="Seco" />
-                                    <FormControlLabel style={{margin: 0, width: "fit-content"}} control={<BpCheckbox />} label="Semi Seco" />
-                                    <FormControlLabel style={{margin: 0, width: "fit-content"}} control={<BpCheckbox />} label="Dulce" />
-                                    <FormControlLabel style={{margin: 0, width: "fit-content"}} control={<BpCheckbox />} label="Semi Dulce" />
+                                    {
+                                        listaComidas.map((item: any, index: number) => {
+                                            return <FormControlLabel key={index} style={{margin: 0, width: "fit-content"}} control={<BpCheckbox id="listaComidas" checked={filtro.listaComidas.includes(item)} value={item} onClick={seleccionarFiltro} key={index} />} label={item} />
+                                        })
+                                    }
                                 </FormGroup>
                             </AccordionDetails>
                         </Accordion>
@@ -169,8 +211,8 @@ const Filtro = (props: any) => {
                 </CardContent>
             </Card>
             {
-                filtro && (
-                    <Button color="inherit" style={{fontSize: "1rem", width: "fit-content", lineHeight: 2, marginTop: ".5rem", color: "#d5d4d4"}}>
+                showBtnFiltro && (
+                    <Button onClick={() => resetFiltro()} color="inherit" style={{fontSize: "1rem", width: "fit-content", lineHeight: 2, marginTop: ".5rem", color: "#d5d4d4"}}>
                         <Close style={{fontSize: "1rem"}} /> Reestablecer Filtro
                     </Button>
                 )
@@ -183,11 +225,16 @@ Filtro.defaultProps = {
 }
 
 const mapStateToProps = (state: any) => ({
-    filtro: state.main.filtro
+    filtro         : state.main.filtro as FiltroSchema,
+    listaLevaduras : state.main.listaLevaduras,
+    listaLupulos   : state.main.listaLupulos,
+    listaMaltas    : state.main.listaMaltas,
+    listaComidas   : state.main.listaComidas,
 })
 
 const mapDispatchToProps = {
-    setFiltro: setFiltro
+    setFiltro        : setFiltro,
+    resetFiltro      : resetFiltro
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filtro);
