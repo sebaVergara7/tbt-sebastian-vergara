@@ -76,6 +76,16 @@
 
 ----------
 
+## **v1.7**
+
+### **Se aplican pequeños test de renderizado y se comenta brevemente el código** | **Resumen general de avances**
+
+##### 1°  Se ordena y comenta el código de cada elemento.
+##### 2°  Se generan tests para 'header', 'itemCerveza' y 'layout'
+##### 3°  Se genera 'setupTests' para uso de jest-dom
+
+----------
+
 
 
 

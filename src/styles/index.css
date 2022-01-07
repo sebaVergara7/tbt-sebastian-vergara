@@ -8,16 +8,19 @@ body > div {
   height: 100%;
 }
 
+/* Controla el espacio entre los elementos del body > div */
 body > div {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
+/* Controla color de ícono superior de card */
 .cardCerveza:hover > div > svg {
   color: #ac3051 !important;
 }
 
+/* Controla color de botón inferior de card */
 .cardCerveza:hover > div > button {
   background-color: #ac3051 !important;
   border-top: 0;

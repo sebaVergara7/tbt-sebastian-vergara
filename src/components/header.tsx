@@ -4,7 +4,8 @@ import { Typography } from "@mui/material";
 import { Fragment } from "react";
 import classes from "./componentStyles";
 
-const listaBotones = [
+//Lista para renderizar menú superior
+const listaMenu = [
     "CATÁLOGO ENTERO",
     "VINO",
     "VODKA",
@@ -15,6 +16,7 @@ const listaBotones = [
 
 const Header = () => {
 
+    //Objeto con las clases del componente Header
     const { classesHeader } = classes;
 
     return (
@@ -53,12 +55,12 @@ const Header = () => {
             <Divider style={{ margin: ".5rem 0 .5rem 0" }} />
             <div className={classesHeader.headerDivButtonList}>
                 {
-                    listaBotones.map((item, index) => {
+                    listaMenu.map((item, index) => {
                         return (
                             <Fragment key={index}>
                                 <Button color="inherit">{item}</Button>
                                 {
-                                    (index < (listaBotones.length - 1)) && (
+                                    (index < (listaMenu.length - 1)) && (
                                         <Square style={{ fontSize: ".5rem", color: "#ac3051" }} className="rotate-45" />
                                     )
                                 }

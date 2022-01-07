@@ -6,8 +6,10 @@ import ILevadura from "../interfaces/ILevadura";
 
 const ItemCerveza = ({ props }: IItemCerveza) => {
 
+    //Obtener props
     const { cerveza, listaLevaduras } = props;
 
+    //Objeto con las clases del componente ItemCerveza
     const {classesItemCerveza} = classes;
 
     return (

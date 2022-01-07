@@ -5,6 +5,7 @@ import classes from './componentStyles';
 
 const Footer = () => {
     
+    //Objeto con las clases del componente Footer
     const { classesFooter } = classes;
 
     return (

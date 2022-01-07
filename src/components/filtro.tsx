@@ -8,6 +8,7 @@ import classes from './componentStyles';
 // import apiCerveza from '../api/apiCerveza';
 // import IFiltro from "../interfaces/IFiltro";
 
+//Customización de Slider
 const SliderStyled = styled(Slider)(({ theme }) => ({
 	color: '#ac3051',
 	'& .MuiSlider-thumb': {
@@ -22,10 +23,11 @@ const SliderStyled = styled(Slider)(({ theme }) => ({
 	}
 }));
 
+//Mínimo de distancia entre el valor de inicio y término del slider
 const minDistance = 5;
 
 const Filtro = (props: any) => {
-
+	//Obtener props
 	const {
 		setFiltro,
 		resetFiltro,
@@ -37,6 +39,7 @@ const Filtro = (props: any) => {
 		listaComidas,
 	} = props;
 
+	//Capturar cambio de valor en slider
 	const handleChange = (
 		event: Event,
 		newValue: number | number[],
@@ -47,15 +50,19 @@ const Filtro = (props: any) => {
 		}
 		let filtroModificado = null;
 		if (activeThumb === 0) {
+			//Controla que el thumb del inicio no sea menor al del final
 			filtroModificado = { ...filtro, rangoABV: [Math.min(newValue[0], filtro.rangoABV[1] - minDistance), filtro.rangoABV[1]] }; 
 		} else {
+			//Controla que el thumb del final no sea mayor al del inicio
 			filtroModificado = { ...filtro, rangoABV: [filtro.rangoABV[0], Math.max(newValue[1], filtro.rangoABV[0] + minDistance)] };
 		}
 
+		//
 		setFiltro(filtroModificado);
 		// getCervezas(filtroModificado);
 	};
 
+	//Capturar dinámicamente el cambio en la selección de alguno de los selects
 	const seleccionarFiltro = (e: any) => {
 		let valor = e.target.value;
 		let id = e.target.id;
@@ -77,12 +84,14 @@ const Filtro = (props: any) => {
 		setFiltro({ ...filtro, [id]: lista });
 	}
 
+	//Filtrar lista cervezas a través de api (Se ha omitido para usar javascript)
 	// const getCervezas = (filtroModificado: IFiltro) => {
 	// 	apiCerveza.getCervezas(filtroModificado).then((resp) => {
 	// 		if (resp?.status === 200) { setListaCervezas(resp.data) };
 	// 	})
 	// }
 
+	//Label de rangos de slider
 	const marks = [
 		{
 			value: filtro.rangoABV[0],
@@ -95,7 +104,10 @@ const Filtro = (props: any) => {
 	]
 
 	
+	//Controla si se muestra botón de reestablecer filtros
 	const showBtnFiltro = (filtro && (filtro.per_page > 25 || filtro.listaLevaduras.length > 0 || filtro.listaLupulos.length > 0 || filtro.listaMaltas.length > 0 || filtro.listaComidas.length > 0 || filtro.rangoABV[0] > 0 || filtro.rangoABV[1] < 60));
+	
+	//Objeto con las clases del componente Filtro
 	const { classesFiltro } = classes;
 
 	return (

@@ -14,37 +14,17 @@ const maxItems = 80;
 
 const App = (props: any) => {
 
+	//Se obtienen props
 	const { filtro, listaCervezas, listaLevaduras, setListaCervezas, setListaCervezasAux, setFiltro } = props;
 
+	//Se maneja un state que renderiza animación de carga de 'Mostrar más'
 	const [cargando, setCargando] = useState(false);
 
+	//Primera carga
 	useEffect(() => 
 		// eslint-disable-next-line
 		getCervezas(), []
 	);
-
-	let listaFiltrada = listaCervezas.slice();
-
-	//SE FILTRA A NIVEL DE JAVASCRIPT
-	if (filtro?.listaLevaduras.length > 0) {
-		listaFiltrada = listaFiltrada.filter((f: any) => filtro.listaLevaduras.map((item: any) => { return item.name }).includes(f.ingredients.yeast));
-	}
-
-	if (filtro?.listaLupulos.length > 0) {
-		listaFiltrada = listaFiltrada.filter((f1: any) => f1.ingredients.hops.find((f2: any) => filtro.listaLupulos.includes(f2.name)));
-	}
-
-	if (filtro?.listaMaltas.length > 0) {
-		listaFiltrada = listaFiltrada.filter((f1: any) => f1.ingredients.malt.find((f2: any) => filtro.listaMaltas.includes(f2.name)));
-	}
-
-	if (filtro?.listaComidas.length > 0) {
-		listaFiltrada = listaFiltrada.filter((f1: any) => f1.food_pairing.find((f2: any) => filtro.listaComidas.includes(f2)));
-	}
-
-	if (filtro?.rangoABV) {
-		listaFiltrada = listaFiltrada.filter((f: any) => f.abv >= (filtro.rangoABV[0]) && f.abv <= (filtro.rangoABV[1]));
-	}
 
 	const getCervezas = () => {
 		apiCerveza.getCervezas(filtro).then((resp) => {
@@ -55,6 +35,36 @@ const App = (props: any) => {
 		})
 	}
 
+	//Se filtra la lista de cervezas a nivel de javascript ------------------------
+	
+	let listaFiltrada = listaCervezas.slice();
+
+	//Filtro levadura
+	if (filtro?.listaLevaduras.length > 0) {
+		listaFiltrada = listaFiltrada.filter((f: any) => filtro.listaLevaduras.map((item: any) => { return item.name }).includes(f.ingredients.yeast));
+	}
+
+	//Filtro lúpulo
+	if (filtro?.listaLupulos.length > 0) {
+		listaFiltrada = listaFiltrada.filter((f1: any) => f1.ingredients.hops.find((f2: any) => filtro.listaLupulos.includes(f2.name)));
+	}
+
+	//Filtro malta
+	if (filtro?.listaMaltas.length > 0) {
+		listaFiltrada = listaFiltrada.filter((f1: any) => f1.ingredients.malt.find((f2: any) => filtro.listaMaltas.includes(f2.name)));
+	}
+
+	//Filtro comida
+	if (filtro?.listaComidas.length > 0) {
+		listaFiltrada = listaFiltrada.filter((f1: any) => f1.food_pairing.find((f2: any) => filtro.listaComidas.includes(f2)));
+	}
+
+	//Filtro abv
+	if (filtro?.rangoABV) {
+		listaFiltrada = listaFiltrada.filter((f: any) => f.abv >= (filtro.rangoABV[0]) && f.abv <= (filtro.rangoABV[1]));
+	}
+
+	//Evento para mostrar más elementos
 	const aumentarItemsPorPagina = () => {
 		setCargando(true);
 		const per_page = (listaFiltrada.length > 0 && (filtro.per_page + 25) < 80) ? filtro.per_page + 25 : 80;

@@ -1,6 +1,9 @@
 import { Checkbox, CheckboxProps } from "@mui/material";
 import { styled } from "@mui/system";
 
+//Customización de Checkbox-----------
+
+//Sin selección
 const BpIcon = styled('span')(({ theme }) => ({
 	borderRadius: 0,
 	transform: "rotate(45deg)",
@@ -17,6 +20,7 @@ const BpIcon = styled('span')(({ theme }) => ({
 	},
 }));
 
+//Seleccionado
 const BpCheckedIcon = styled(BpIcon)({
 	backgroundColor: '#ac3051',
 	'&:before': {
@@ -26,6 +30,8 @@ const BpCheckedIcon = styled(BpIcon)({
 		content: '""',
 	},
 });
+
+//---------------------------------------------------
 
 const BpCheckbox = (props: CheckboxProps) => {
 	return (

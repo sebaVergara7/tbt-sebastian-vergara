@@ -1,5 +1,5 @@
 const classes = {
-    //Layou
+    //Layout
     classesLayout: {
         childrenDiv: "lg:px-36 md:px-36 py-10",
     },

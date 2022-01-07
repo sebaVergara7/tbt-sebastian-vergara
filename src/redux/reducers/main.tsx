@@ -11,6 +11,7 @@ const initialState = {
     },
     listaCervezas: [],
     listaCervezasAux: [],
+    //Listas estáticas para filtros
     listaLevaduras: [
         { name: "Saflager S189", color: "#b9945e" },
         { name: "WLP099 - Super High Gravity Ale", color: "#b95e5e" },
